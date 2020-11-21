@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
-import 'package:gridview/models/AlbumModel.dart';
+import 'package:album/models/AlbumModel.dart';
 import 'package:http/http.dart' as http;
 
 Future<List<AlbumModel>> getAlbum(http.Client client) async {

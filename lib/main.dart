@@ -1,73 +1,37 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gridview/controls/GridViewControl.dart';
-import 'package:gridview/models/AlbumModel.dart';
-import 'package:gridview/services/AlbumService.dart';
-import 'package:http/http.dart' as http;
 
-import 'config.dart';
+import 'blocs/mainBlock.dart';
+import 'views/homePage.dart';
 
-void main() {
-  runApp(MyApp());
+void main() => runApp(MyApp());
+
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
 }
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+    mainBloc = MainBloc();
+  }
+
+  @override
+  void dispose() {
+    mainBloc = null;
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Album',
+      title: "SetState management",
       theme: ThemeData(
-        primarySwatch: Colors.teal,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+        primarySwatch: Colors.blue,
       ),
-      home: HomePage(title: 'Album'),
+      home: MyHomePage(),
     );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  final String title;
-
-  HomePage({Key key, this.title}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    Widget buttonSection = Container(
-        child: new ButtonBar(mainAxisSize: MainAxisSize.min, children: [
-      new MaterialButton(
-          child: new Text('1'),
-          color: Colors.tealAccent,
-          textColor: Colors.white,
-          onPressed: () => {Config.noColumnsAlbum = URL_TOKENLESS_PORTRAT}),
-      new MaterialButton(
-          child: new Text('2'),
-          color: Colors.tealAccent,
-          textColor: Colors.white,
-          onPressed: () => {URL_TOKENLESS_SELECTED = URL_TOKENLESS_LANDSCAPE}),
-    ]));
-
-    Widget gridSection = Expanded(
-        child: new FutureBuilder<List<AlbumModel>>(
-      future: getAlbum(new http.Client()),
-      builder: (context, snapshot) {
-        if (snapshot.hasError) print(snapshot.error);
-
-        return snapshot.hasData
-            ? new GridViewControl(album: snapshot.data)
-            : new Center(child: new CircularProgressIndicator());
-      },
-    ));
-
-    return new Scaffold(
-        appBar: AppBar(
-          title:
-              new Center(child: new Text(title, textAlign: TextAlign.center)),
-        ),
-        body: OrientationBuilder(builder: (context, orientation) {
-          return new Container(
-              child:
-                  new Column(children: <Widget>[buttonSection, gridSection]));
-        }));
   }
 }

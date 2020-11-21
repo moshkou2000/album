@@ -1,18 +1,13 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:transparent_image/transparent_image.dart';
-import 'package:gridview/models/AlbumModel.dart';
+import 'package:album/models/AlbumModel.dart';
 
 import '../config.dart';
 
-class GridViewControl extends StatefulWidget {
+class GridViewControl extends StatelessWidget {
   final List<AlbumModel> album;
 
   GridViewControl({Key key, this.album}) : super(key: key);
-
-  @override
-  State<StatefulWidget> createState() {}
 
   Container getStructuredGridCell(AlbumModel album) {
     return new Container(
