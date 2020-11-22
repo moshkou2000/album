@@ -1,4 +1,4 @@
-package com.moshkou.gridview
+package com.moshkou.album
 
 import io.flutter.embedding.android.FlutterActivity
 
