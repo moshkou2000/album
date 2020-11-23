@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'blocs/mainBlock.dart';
-import 'views/homePage.dart';
+import 'package:album/blocs/mainBlock.dart';
+import 'package:album/views/homePage.dart';
 
 void main() => runApp(App());
 
