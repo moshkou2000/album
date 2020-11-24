@@ -1,21 +1,16 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
+import 'package:http/http.dart' as http;
 
 import 'package:album/services/httpProvider.dart';
 import 'package:album/models/albumModel.dart';
 
-class AlbumProvider {
-  final String api = 'someapi';
-
-  final HttpProvider http;
-
-  AlbumProvider({@required this.http});
-
-  Future<List<AlbumModel>> getAlbum(url) async {
+class AlbumProvider implements HttpProvider {
+  @override
+  Future<dynamic> get(String url, {Map<String, String> headers}) async {
     final response = await http.get(Uri.encodeFull(url));
     if (response.statusCode == 200) {
-      return compute(AlbumModel.toList, response.body);
+      return AlbumModel.toList(response.body);
     } else {
       throw Exception();
     }

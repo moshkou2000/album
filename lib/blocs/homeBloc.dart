@@ -8,7 +8,7 @@ import 'mainBlock.dart';
 
 class HomeBloc {
   String url;
-  AlbumProvider albumProvider;
+  AlbumProvider albumProvider = new AlbumProvider();
 
   final buttonEventController = StreamController<ButtonEvent>();
   StreamSink<ButtonEvent> get inButtonEvent => buttonEventController.sink;
@@ -41,7 +41,7 @@ class HomeBloc {
       url = newUrl;
       inButtonValue.add(newUrl);
 
-      final response = await albumProvider.getAlbum(newUrl);
+      final response = await albumProvider.get(newUrl);
 
       print(response != null
           ? 'got ${response.length} items'
